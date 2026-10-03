@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- 公開用プライバシーポリシー。アプリ内の表示文書とは別に配信する。 -->
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
@@ -100,12 +101,12 @@
 食材スキャン回数、レシピ生成回数、冷蔵庫の在庫情報、お気に入りレシピ、お買い物リスト等、本アプリ内でユーザーが入力または生成したデータ。
 
 (3) 端末情報
-プッシュ通知送信に必要なデバイストークン、OS 種別、アプリのバージョン等の技術情報。
+OS 種別、アプリのバージョン等の技術情報。通知の許可状態と設定は端末内で管理します。
 
 (4) 画像データ
 食材スキャン機能において、カメラを通じて撮影された画像。
 
-※画像データは、食材認識処理のために一時的に外部 AI サービスへ送信されますが、認識処理以外の目的で利用されることはなく、当方のサーバー上に保存されません。</p>
+※画像データは、食材認識処理のために OpenAI API へ送信されます。当方の API サーバーでは画像を永続保存しません。外部サービスでの保持は、提供先のデータ管理方針に従います。</p>
         </div>
         <div class="section">
           <h2>2. 利用目的</h2>
@@ -114,7 +115,7 @@
 ・本アプリのサービス提供（食材認識、レシピ提案、冷蔵庫管理等）
 ・ユーザー認証およびアカウント管理
 ・無料プランおよび有料（プレミアム）プランの利用制限・課金管理
-・プッシュ通知の送信（レシピ生成完了等のお知らせ）
+・端末内での通知の表示（賞味期限などのお知らせ）
 ・広告の表示および最適化
 ・サービス品質向上のための分析、改善および不具合対応</p>
         </div>
@@ -122,8 +123,10 @@
           <h2>3. 第三者提供および業務委託</h2>
           <p class="linebreaks">当方は、法令に基づく場合を除き、ユーザーの同意なく個人情報を第三者に販売または貸与することはありません。ただし、利用目的の達成に必要な範囲において、以下の外部サービス事業者に対し、業務を委託し、情報を提供する場合があります。
 
-・認証およびデータベースの運用：当方のサーバー（日本国内）でユーザー認証・セッション管理・データ保存を行っています
-・AI 機能（食材認識・レシピ生成）：OpenAI API（画像データやテキストデータが一時的に送信されますが、これらのデータは学習目的には使用されません。詳細はOpenAIのプライバシーポリシーをご確認ください）
+・認証およびデータ保存：Supabase（アカウント認証、セッション管理、冷蔵庫・買い物リスト・保存レシピ等のデータ保存）
+・API の運用：Render（アプリからの認証済みリクエストや AI 処理の中継）
+・課金管理：RevenueCat、Apple App Store、Google Play（アプリ内のユーザー識別子、購入履歴、購読状態の管理）
+・AI 機能（食材認識・レシピ生成）：OpenAI API（画像データやテキストデータを送信します。取扱いは OpenAI のデータ管理方針に従います）
 ・広告配信：Google AdMob（デバイス情報や広告IDを使用してパーソナライズされた広告を表示する場合があります。詳細はGoogle AdMobのプライバシーポリシーをご確認ください）
 
 これらの事業者は、日本国外（主に米国）に所在する場合があり、取得された情報は各事業者のプライバシーポリシーおよびデータ保護方針に従って管理されます。</p>
@@ -132,13 +135,13 @@
           <h2>4. カメラ・画像および AI の取扱い</h2>
           <p class="linebreaks">本アプリの食材スキャン機能においては、以下の運用を行います。
 
-・画像は食材認識処理に必要な範囲でのみ利用され、処理完了後に保持または保存されることはありません。
-・送信された画像データおよびテキストデータが、AI モデルの学習目的に再利用されることはありません。
+・当方の API サーバーでは、食材認識に送信された画像を永続保存しません。外部サービスでは、提供先の方針に従ってデータが保持される場合があります。
+・OpenAI API は既定では送信データをモデルの学習に使用しません。学習利用と保持の詳細は OpenAI のデータ管理方針に従います。
 ・画像データが広告目的またはユーザー識別目的で利用されることはありません。</p>
         </div>
         <div class="section">
           <h2>5. データの保存期間および削除</h2>
-          <p class="linebreaks">アカウントに紐づくデータは、ユーザーがアカウントを保持している間、運営者のサーバー（日本国内）に保存されます。
+          <p class="linebreaks">アカウントに紐づくアプリのデータは、ユーザーがアカウントを保持している間、Supabase 等の利用サービスに保存されます。ゲストの冷蔵庫・買い物リストや通知設定などは端末内に保存されます。
 
 ユーザーがアカウント削除を行った場合、当該アカウントに関連するデータは、合理的な期間内に削除されます。
 
@@ -148,11 +151,11 @@
           <h2>6. セキュリティ対策</h2>
           <p class="linebreaks">当方は、個人情報の漏洩、滅失、毀損の防止その他の個人情報の安全管理のため、必要かつ適切な措置を講じます。
 
-具体的には、通信の暗号化（HTTPS）、アクセス制御、定期的なセキュリティ監査等を実施しています。</p>
+具体的には、API 通信の暗号化（HTTPS）、認証、利用者ごとのアクセス制御、入力検証等を行います。</p>
         </div>
         <div class="section">
           <h2>7. Cookie・トラッキング技術</h2>
-          <p class="linebreaks">本アプリでは、Cookieやその他のトラッキング技術を使用していません。</p>
+          <p class="linebreaks">本アプリで利用する外部 SDK は、広告配信や課金管理のため、端末識別子、IP アドレス、広告の表示・操作情報、購入情報等を取得する場合があります。取得する情報と利用目的は、各提供先のプライバシーポリシーに従います。</p>
         </div>
         <div class="section">
           <h2>8. データの匿名化・統計処理</h2>
@@ -175,7 +178,7 @@ EU圏のユーザーについては、GDPR（一般データ保護規則）に�
           <h2>11. プライバシーポリシーの改定</h2>
           <p class="linebreaks">当方は、必要に応じて本プライバシーポリシーを改定することがあります。重要な変更がある場合には、本アプリ内等を通じてお知らせします。</p>
         </div>
-        <p class="muted">制定日：2026年2月5日</p>
+        <p class="muted">制定日：2026年2月5日 ／ 改定日：2026年10月3日</p>
       </div>
 
       <div class="card">
@@ -195,12 +198,12 @@ Email address, display name, and authentication information provided by external
 Number of ingredient scans, number of recipe generations, refrigerator inventory, saved recipes, shopping lists, and other data that you input or generate within the App.
 
 (3) Device Information
-Device tokens required for push notifications, OS type, app version, and other technical information.
+OS type, app version, and other technical information. Notification permissions and settings are managed on the device.
 
 (4) Image Data
 Images captured through the camera in the ingredient scanning feature.
 
-* Image data is temporarily sent to external AI services for ingredient recognition purposes only. It is not used for any purpose other than recognition processing and is not stored on our servers.</p>
+* Images are sent to the OpenAI API for ingredient recognition. Our API server does not persist these images. Retention by external services follows the providers' data policies.</p>
         </div>
         <div class="section">
           <h2>2. Purposes of Use</h2>
@@ -209,7 +212,7 @@ Images captured through the camera in the ingredient scanning feature.
 ・Providing App services (ingredient recognition, recipe suggestions, refrigerator management, etc.)
 ・User authentication and account management
 ・Managing usage limits and billing for free and premium plans
-・Sending push notifications (e.g., recipe generation completion)
+・Displaying local notifications (e.g., expiration reminders)
 ・Displaying and optimizing advertisements
 ・Analysis, improvement, and troubleshooting to enhance service quality</p>
         </div>
@@ -217,8 +220,10 @@ Images captured through the camera in the ingredient scanning feature.
           <h2>3. Third-Party Disclosure and Service Providers</h2>
           <p class="linebreaks">We do not sell or lend your personal information to third parties without your consent, except as required by law. However, we may entrust operations to the following external service providers and provide them with information to the extent necessary to achieve the purposes of use:
 
-・Authentication and database operations: Our servers (located in Japan) handle user authentication, session management, and data storage
-・AI features (ingredient recognition, recipe generation): OpenAI API (image and text data are temporarily sent, but these data are not used for training purposes. Please refer to OpenAI's privacy policy for details)
+・Authentication and data storage: Supabase (account authentication, sessions, inventory, shopping lists, and saved recipes)
+・API hosting: Render (processing authenticated App requests and relaying AI requests)
+・Billing: RevenueCat, Apple App Store, and Google Play (App user identifiers, purchase history, and subscription status)
+・AI features (ingredient recognition, recipe generation): OpenAI API (receives images and text under OpenAI's data policies)
 ・Advertising: Google AdMob (may use device information and advertising IDs to display personalized ads. Please refer to Google AdMob's privacy policy for details)
 
 These providers may be located outside Japan (mainly in the United States). Information provided to them is managed in accordance with their respective privacy policies and data protection standards.</p>
@@ -227,13 +232,13 @@ These providers may be located outside Japan (mainly in the United States). Info
           <h2>4. Camera, Images, and AI</h2>
           <p class="linebreaks">For the ingredient scanning feature, we operate as follows:
 
-・Images are used only to the extent necessary for ingredient recognition and are not retained or stored after processing is complete.
-・Image and text data sent for processing are not reused for AI model training purposes.
+・Our API server does not persist images submitted for ingredient recognition. External providers may retain data under their own policies.
+・OpenAI does not use API data for model training by default. Training use and retention are governed by OpenAI's data policies.
 ・Image data is not used for advertising or user identification purposes.</p>
         </div>
         <div class="section">
           <h2>5. Data Retention and Deletion</h2>
-          <p class="linebreaks">Data linked to your account is stored on our servers (located in Japan) while you maintain your account.
+          <p class="linebreaks">App data linked to your account is stored in services such as Supabase while you maintain your account. Guest inventory, guest shopping lists, and notification settings are stored on the device.
 
 If you delete your account, data associated with that account will be deleted within a reasonable period.
 
@@ -243,11 +248,11 @@ If you delete your account, data associated with that account will be deleted wi
           <h2>6. Security Measures</h2>
           <p class="linebreaks">We take necessary and appropriate measures to prevent leakage, loss, or damage of personal information and to ensure the secure management of personal information.
 
-Specifically, we implement encryption of communications (HTTPS), access control, and regular security audits.</p>
+Our measures include API communication encryption (HTTPS), authentication, per-user access control, and input validation.</p>
         </div>
         <div class="section">
           <h2>7. Cookies and Tracking Technologies</h2>
-          <p class="linebreaks">This App does not use cookies or other tracking technologies.</p>
+          <p class="linebreaks">External SDKs used by the App may collect device identifiers, IP addresses, ad impressions and interactions, and purchase information for advertising or billing. Their data collection and purposes are governed by each provider's privacy policy.</p>
         </div>
         <div class="section">
           <h2>8. Data Anonymization and Statistical Processing</h2>
@@ -270,7 +275,7 @@ Email: kamonlab.app@gmail.com</p>
           <h2>11. Changes to This Privacy Policy</h2>
           <p class="linebreaks">We may revise this Privacy Policy as necessary. In the event of significant changes, we will notify you through the App or other appropriate means.</p>
         </div>
-        <p class="muted">Effective Date: February 5, 2026</p>
+        <p class="muted">Effective Date: February 5, 2026 / Revised: October 3, 2026</p>
       </div>
     </div>
 
